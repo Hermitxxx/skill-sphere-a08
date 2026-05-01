@@ -1,6 +1,8 @@
-import { Anchor, Beef, Brain, ChartCandlestick, Fan, House, LucideOctagonX, Settings, SquareChevronRight, TrendingUp, User } from 'lucide-react';
+import { Anchor, Beef, Brain, BrainCircuitIcon, ChartCandlestick, Fan, House, LogIn, LogOut, LucideOctagonX, Menu, Settings, SquareChevronRight, TrendingUp, User } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import NavLink from './NavLink';
 
 const Sidebar = ({ children }) => {
   return (
@@ -9,27 +11,31 @@ const Sidebar = ({ children }) => {
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar gap-2 w-full bg-base-300">
+          <nav className='flex items-center gap-1 sm:gap-2 py-2 border-b border-tertiary'>
             <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
               {/* Sidebar toggle icon */}
-              <SquareChevronRight />
+              <Menu className='text-surface-alt' />
             </label>
-            <div className="sm:px-4 whitespace-nowrap">
-              <h1 className='font-semibold text-accent text-lg'>SkillSphere</h1>
-            </div>
 
-            <div className='flex items-center py-2 justify-end px-4 w-[90%] border border-amber-200'>
-              <h1 className='text-primary'>item</h1>
-              <h1 className='text-secondary'>item</h1>
-              <h1 className='text-tertiary'>item</h1>
-              <h1 className='text-accent'>item</h1>
-              <h1 className='text-primary-content'>p-content</h1>
-              <h1 className='text-secondary-content'>s-content</h1>
-              <h1 className='text-neutral border border-amber-500'>item</h1>
+            <div className='flex items-center justify-between w-full'>
+              <div className="logo flex items-center gap-1">
+                <Anchor />
+                <h1 className='font-semibold text-lg sm:text-xl text-tertiary'>SkillSphere</h1>
+              </div>
+
+              <div className="buttons flex items-center gap-4 px-2 sm:px-6">
+                <div className="profile">
+                  <Image src={`/globe.svg`} alt='user' width={24} height={24}></Image>
+                </div>
+
+                <button className="btn bg-primary text-surface rounded-full">
+                  <span>Log out</span>
+                </button>
+              </div>
             </div>
           </nav>
           {/* Page content here */}
-          <div className="p-4">
+          <div className="p-4 border border-amber-400">
             {children}
           </div>
         </div>
@@ -41,40 +47,47 @@ const Sidebar = ({ children }) => {
             <ul className="menu w-full gap-5 pt-4 grow px-4">
               {/* List item */}
               <li>
-                <Link href={`/`}>
-                  <button className="is-drawer-close:tooltip flex items-center gap-2 is-drawer-close:tooltip-right" data-tip="Homepage">
+                <NavLink href={`/`}>
+                  <button className="flex items-center gap-2">
                     {/* Home icon */}
                     <House></House>
                     <span className="is-drawer-close:hidden text-lg">Home</span>
                   </button>
-                </Link>
+                </NavLink>
               </li>
 
               <li>
-                <Link href={`/courses`}>
-                  <button className="is-drawer-close:tooltip flex items-center gap-2 is-drawer-close:tooltip-right" data-tip="Homepage">
+                <NavLink href={`/courses`}>
+                  <button className="flex items-center gap-2">
                     <Brain />
                     <span className="is-drawer-close:hidden text-lg">Courses</span>
                   </button>
-                </Link>
+                </NavLink>
               </li>
 
               <li>
-                <Link href={`/trending`}>
-                  <button className="is-drawer-close:tooltip flex items-center gap-2 is-drawer-close:tooltip-right" data-tip="Homepage">
+                <NavLink href={`/trending`}>
+                  <button className="flex items-center gap-2">
                     <TrendingUp />
                     <span className="is-drawer-close:hidden text-lg">Popular</span>
                   </button>
-                </Link>
+                </NavLink>
               </li>
 
               <li>
-                <Link href={`/profile`}>
-                  <button className="is-drawer-close:tooltip flex items-center gap-2 is-drawer-close:tooltip-right" data-tip="Settings">
+                <NavLink href={`/profile`}>
+                  <button className="flex items-center gap-2">
                     <User />
                     <span className="is-drawer-close:hidden text-lg">Profile</span>
                   </button>
-                </Link>
+                </NavLink>
+              </li>
+
+              <li>
+                <button className="is-drawer-close:tooltip rounded-full bg-primary text-surface flex items-center gap-2 is-drawer-close:tooltip-right" data-tip="Settings">
+                  <LogOut />
+                  <span className="is-drawer-close:hidden text-lg">Log out</span>
+                </button>
               </li>
             </ul>
           </div>
