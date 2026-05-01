@@ -17,7 +17,7 @@ const HomePage = async () => {
             </div>
 
             <div className='flex items-center justify-center gap-3 mb-8'>
-                <div className="group w-[30%] relative">
+                <div className="group w-full sm:w-[40%] relative">
                     <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-surface-alt/60 transition-colors duration-300 group-focus-within:text-accent">
                         <svg className="h-[1.1em] w-[1.1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
@@ -35,6 +35,16 @@ const HomePage = async () => {
                     <button className="btn transition-colors duration-300 hover:border-accent hover:text-accent bg-surface border border-muted text-tertiary rounded-full">
                         Search
                     </button>
+                </div>
+            </div>
+
+            <div className="toggle-courses flex items-center gap-2 mb-5">
+                <div className='bg-surface border border-tertiary font-medium cursor-pointer px-3 py-2 rounded-full text-sm'>
+                    All Courses
+                </div>
+
+                <div className='bg-surface border border-accent font-medium text-accent cursor-pointer px-3 py-2 rounded-full text-sm'>
+                    Popular
                 </div>
             </div>
 

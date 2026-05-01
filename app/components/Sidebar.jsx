@@ -9,9 +9,9 @@ const Sidebar = ({ children }) => {
     <div>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
+        <div className="drawer-content relative">
           {/* Navbar */}
-          <nav className='flex items-center gap-1 sm:gap-2 py-2 border-b border-tertiary'>
+          <nav className='flex items-center gap-1 sm:gap-2 py-3 border-b border-surface-alt sticky top-0 z-20 backdrop-blur-md'>
             <label htmlFor="my-drawer-4" aria-label="open sidebar" className="btn btn-square btn-ghost">
               {/* Sidebar toggle icon */}
               <Menu className='text-surface-alt' />
@@ -35,12 +35,12 @@ const Sidebar = ({ children }) => {
             </div>
           </nav>
           {/* Page content here */}
-          <div className="p-4 border border-amber-400">
+          <div className="p-4">
             {children}
           </div>
         </div>
 
-        <div className="drawer-side is-drawer-close:overflow-visible">
+        <div className="drawer-side is-drawer-close:overflow-visible z-50">
           <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
           <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-20 is-drawer-open:w-48">
             {/* Sidebar content here */}
