@@ -1,26 +1,91 @@
+@import "@heroui/styles";
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@plugin "daisyui" {
+  themes: daw-waveform;
+}
+ 
+@plugin "daisyui/theme" {
+  name: "daw-waveform";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+ 
+  /* ── Surfaces ─────────────────────────────────────────────
+     bg:         #0A0E12  page foundation / rack black
+     surface:    #11161C  cards, panels, drawers
+     surfaceAlt: #6F7C88  alternate surface
+  ───────────────────────────────────────────────────────── */
+  --color-base-100: oklch(12.2% 0.015 240);     /* surface     #11161C */
+  --color-base-200: oklch(9.5%  0.012 240);     /* mid                 */
+  --color-base-300: oklch(7.2%  0.010 240);     /* bg          #0A0E12 */
+  --color-base-content: oklch(92.1% 0.008 220); /* text        #E5E9EC */
+ 
+  /* ── Primary = accent teal ────────────────────────────────
+     accent: #3DD6B5
+     Maps to DaisyUI primary → text-primary, bg-primary,
+     btn-primary, border-primary all resolve to teal.
+  ───────────────────────────────────────────────────────── */
+  --color-primary: oklch(78.5% 0.131 174);        /* accent  #3DD6B5 */
+  --color-primary-content: oklch(7.2% 0.010 240); /* bg      #0A0E12 */
+ 
+  /* ── Secondary = muted / border #6F7C88 ─────────────────*/
+  --color-secondary: oklch(51.8% 0.022 220);
+  --color-secondary-content: oklch(92.1% 0.008 220);
+ 
+  /* ── Accent mirrors primary (single-accent rule) ─────── */
+  --color-accent: oklch(78.5% 0.131 174);
+  --color-accent-content: oklch(7.2% 0.010 240);
+ 
+  /* ── Neutral = rack black #0A0E12 ───────────────────────*/
+  --color-neutral: oklch(7.2% 0.010 240);
+  --color-neutral-content: oklch(92.1% 0.008 220);
+ 
+  /* ── Semantic ────────────────────────────────────────── */
+  --color-info: oklch(64% 0.12 220);
+  --color-info-content: oklch(7.2% 0.010 240);
+  --color-success: oklch(74% 0.14 158);
+  --color-success-content: oklch(7.2% 0.010 240);
+  --color-warning: oklch(76% 0.16 70);
+  --color-warning-content: oklch(7.2% 0.010 240);
+  --color-error: oklch(54% 0.21 25);             /* signal red — clip warning */
+  --color-error-content: oklch(96% 0.005 25);
+ 
+  /* ── Radii (spec: sm 3px · md 6px · lg 10px) ──────────*/
+  --radius-selector: 0.1875rem;
+  --radius-field:    0.375rem;
+  --radius-box:      0.625rem;
+ 
+  --size-selector: 0.25rem;
+  --size-field:    0.25rem;
+ 
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+ 
+/* ============================================================
+   TAILWIND v4 THEME — named aliases matching your token names
+   ============================================================ */
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans:    var(--font-space-grotesk), sans-serif;
+  --default-font-family: var(--font-space-grotesk), sans-serif;
+  --font-mono:    "JetBrains Mono", monospace;
+ 
+  --color-bg:          oklch(7.2%  0.010 240);   /* #0A0E12 */
+  --color-surface:     oklch(12.2% 0.015 240);   /* #11161C */
+  --color-surface-alt: oklch(51.8% 0.022 220);   /* #6F7C88 */
+  --color-accent:      oklch(78.5% 0.131 174);   /* #3DD6B5 */
+  --color-text:        oklch(92.1% 0.008 220);   /* #E5E9EC */
+  --color-muted:       oklch(51.8% 0.022 220);   /* #6F7C88 */
+  --color-border:      oklch(51.8% 0.022 220);   /* #6F7C88 */
+  --color-signal-red:  oklch(54% 0.21 25);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html,
+  body {
+    font-family: var(--font-space-grotesk), sans-serif;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
