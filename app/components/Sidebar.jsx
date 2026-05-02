@@ -57,7 +57,7 @@ const Sidebar = ({ children }) => {
               </li>
 
               <li>
-                <NavLink href={`/courses`}>
+                <NavLink href={`/all-courses`}>
                   <button className="flex items-center gap-2">
                     <Brain />
                     <span className="is-drawer-close:hidden text-lg">Courses</span>
