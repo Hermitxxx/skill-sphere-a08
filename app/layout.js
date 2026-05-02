@@ -1,6 +1,7 @@
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Sidebar from "./components/Sidebar";
+import Footer from "./components/sections/Footer";
 
 
 const spaceGrotesk = Space_Grotesk({
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
         <Sidebar>
           {children}
         </Sidebar>
+        <Footer></Footer>
       </body>
     </html>
   );

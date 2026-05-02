@@ -1,11 +1,28 @@
+'use client'
 import { Anchor, Beef, Brain, BrainCircuitIcon, ChartCandlestick, Fan, House, LogIn, LogOut, LucideOctagonX, Menu, Settings, SquareChevronRight, TrendingUp, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import NavLink from './NavLink';
 import Footer from './sections/Footer';
+import { authClient } from '../lib/auth-client';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = ({ children }) => {
+  const router = useRouter()
+  const { data: session, isPending } = authClient.useSession()
+  const user = session?.user
+
+  const handleLogOut = async () => {
+
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login"); // redirect to login page
+        },
+      },
+    });
+  }
   return (
     <div>
       <div className="drawer lg:drawer-open">
@@ -25,20 +42,27 @@ const Sidebar = ({ children }) => {
               </div>
 
               <div className="buttons flex items-center gap-4 px-2 sm:px-6">
-                <div className="profile">
-                  <Image src={`/globe.svg`} alt='user' width={24} height={24}></Image>
-                </div>
+                { isPending ? <span className='text-accent text-sm'>Loading...</span> :
+                  user ?
+                    <>
+                      <div className="profile">
+                        <Image src={`/globe.svg`} alt='user' width={24} height={24}></Image>
+                      </div>
 
-                <button className="btn bg-primary text-surface rounded-full">
-                  <span>Log out</span>
-                </button>
+                      <button onClick={handleLogOut} className="btn bg-primary text-surface rounded-full">
+                        <span>Log out</span>
+                      </button>
+                    </> :
+                    <button className="btn bg-primary text-surface rounded-full">
+                      <span>Log in</span>
+                    </button>
+                }
               </div>
             </div>
           </nav>
           {/* Page content here */}
           <div className="p-4">
             {children}
-            <Footer></Footer>
           </div>
         </div>
 

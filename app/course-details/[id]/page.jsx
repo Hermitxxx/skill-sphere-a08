@@ -16,7 +16,7 @@ const CourseDetails = async ({ params }) => {
         <div className="min-h-80vh">
             <div className="container mx-auto px-4 py-6">
                 <Link
-                    href="/"
+                    href="/all-courses"
                     className="inline-flex items-center gap-2 text-surface-alt hover:text-accent transition-colors duration-300"
                 >
                     <ArrowLeft className="w-4 h-4" />
