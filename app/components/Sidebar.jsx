@@ -7,18 +7,31 @@ import NavLink from './NavLink';
 import Footer from './sections/Footer';
 import { authClient } from '../lib/auth-client';
 import { useRouter } from 'next/navigation';
+import { Bounce, toast } from 'react-toastify';
 
 const Sidebar = ({ children }) => {
   const router = useRouter()
   const { data: session, isPending } = authClient.useSession()
   const user = session?.user
 
-  const handleLogOut = async () => {
+  console.log(user);
 
+  const handleLogOut = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push("/login"); // redirect to login page
+          router.push("/"); // redirect to login page
+          toast.info('Logout successful', {
+            position: "top-left",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
         },
       },
     });
@@ -42,20 +55,32 @@ const Sidebar = ({ children }) => {
               </div>
 
               <div className="buttons flex items-center gap-4 px-2 sm:px-6">
-                { isPending ? <span className='text-accent text-sm'>Loading...</span> :
+                {
                   user ?
                     <>
-                      <div className="profile">
-                        <Image src={`/globe.svg`} alt='user' width={24} height={24}></Image>
+                      <div className="profile rounded-full border border-accent">
+                        <Image src={user.image} className='object-cover rounded-full' alt={user.name} width={32} height={32}></Image>
                       </div>
 
                       <button onClick={handleLogOut} className="btn bg-primary text-surface rounded-full">
                         <span>Log out</span>
                       </button>
                     </> :
-                    <button className="btn bg-primary text-surface rounded-full">
-                      <span>Log in</span>
-                    </button>
+                    <>
+                      <div className='flex items-center gap-1'>
+                        <Link href={`/register`}>
+                          <button className="btn transition-colors duration-300 hover:border-accent hover:text-accent bg-surface border border-muted text-tertiary rounded-full">
+                            Register
+                          </button>
+                        </Link>
+
+                        <Link href={`/login`}>
+                          <button className="btn bg-primary text-surface rounded-full">
+                            <span>Log in</span>
+                          </button>
+                        </Link>
+                      </div>
+                    </>
                 }
               </div>
             </div>

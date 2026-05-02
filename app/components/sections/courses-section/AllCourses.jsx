@@ -10,7 +10,7 @@ const popular = await getPopular()
 
 const AllCourses = () => {
     const [state, setState] = useState('all-courses')
-    const { data: session, isPending } = authClient.useSession()
+    const { data: session } = authClient.useSession()
     const user = session?.user
 
     const handleClick = (value) => {

@@ -1,8 +1,37 @@
+'use client'
+import { authClient } from '@/app/lib/auth-client';
 import { Clock } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Bounce, toast } from 'react-toastify';
 
 export default function CourseCard({ course }) {
+
+    const { data: session } = authClient.useSession()
+    const user = session?.user
+
+    const router = useRouter()
+
+    const handleDetails = () => {
+        if (user) {
+            router.push(`/course-details/${course.id}`)
+        }
+
+        if (!user) {
+            toast.error('You must log in to see details', {
+                position: "top-left",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+        }
+    }
 
     return (
         <div className="group rounded-xl overflow-hidden border border-white/10 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-accent/40 bg-surface">
@@ -60,11 +89,9 @@ export default function CourseCard({ course }) {
                     {course.description}
                 </p>
 
-                <Link href={`/course-details/${course.id}`}>
-                    <button className="w-full cursor-pointer mt-1 py-2 text-[12px] font-semibold tracking-wide rounded-full border border-accent/30 text-accent bg-accent/5 hover:bg-accent/20 hover:border-accent/50 transition-all duration-300">
-                        See Details
-                    </button>
-                </Link>
+                <button onClick={handleDetails} className="w-full cursor-pointer mt-1 py-2 text-[12px] font-semibold tracking-wide rounded-full border border-accent/30 text-accent bg-accent/5 hover:bg-accent/20 hover:border-accent/50 transition-all duration-300">
+                    See Details
+                </button>
             </div>
         </div>
     );

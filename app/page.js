@@ -1,6 +1,7 @@
 import divider from "daisyui/components/divider";
 import Sidebar from "./components/Sidebar";
 import HomePage from "./components/HomePage";
+import { Bounce, ToastContainer } from "react-toastify";
 
 export default function Home() {
   return (
