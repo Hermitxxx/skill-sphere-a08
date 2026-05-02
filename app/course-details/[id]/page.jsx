@@ -20,7 +20,7 @@ const CourseDetails = async ({ params }) => {
                     className="inline-flex items-center gap-2 text-surface-alt hover:text-accent transition-colors duration-300"
                 >
                     <ArrowLeft className="w-4 h-4" />
-                    <span className="text-sm">Back to courses</span>
+                    <span className="text-sm text-white hover:text-accent transition-colors duration-300">Back to courses</span>
                 </Link>
             </div>
 

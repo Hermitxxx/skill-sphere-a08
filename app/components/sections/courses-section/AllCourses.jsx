@@ -13,7 +13,7 @@ const AllCourses = () => {
         setState(value)
     }
     return (
-        <div>
+        <div className='mb-10'>
             <div className="heading-intro text-center px-4 py-12 space-y-5">
                 <h1 className='font-semibold text-3xl sm:text-4xl md:text-5xl text-accent'>Level Up Yours Skills</h1>
                 <p className='text-surface-alt leading-tight'>
@@ -45,13 +45,13 @@ const AllCourses = () => {
             </div>
 
             <div className="toggle-courses flex items-center gap-2 mb-5">
-                <div onClick={() => handleClick('all-courses')} className={`${state === 'all-courses' ? 'border-accent border bg-surface text-accent' : 'border transition-colors duration-100 border-tertiary text-tertiary'} font-medium cursor-pointer px-3 py-2 rounded-full text-sm`}>
+                <button onClick={() => handleClick('all-courses')} className={`${state === 'all-courses' ? 'border-accent border bg-surface text-accent' : 'border transition-colors duration-100 border-tertiary text-tertiary'} font-medium cursor-pointer px-3 py-2 rounded-full text-sm`}>
                     All Courses
-                </div>
+                </button>
 
-                <div onClick={() => handleClick('popular')} className={`${state === 'popular' ? 'border-accent border bg-surface text-accent' : 'border transition-colors duration-100 border-tertiary text-tertiary'} font-medium cursor-pointer px-3 py-2 rounded-full text-sm`}>
+                <button onClick={() => handleClick('popular')} className={`${state === 'popular' ? 'border-accent border bg-surface text-accent' : 'border transition-colors duration-100 border-tertiary text-tertiary'} font-medium cursor-pointer px-3 py-2 rounded-full text-sm`}>
                     Popular
-                </div>
+                </button>
             </div>
 
             <div className='course-cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5'>

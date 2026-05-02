@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import NavLink from './NavLink';
+import Footer from './sections/Footer';
 
 const Sidebar = ({ children }) => {
   return (
@@ -37,6 +38,7 @@ const Sidebar = ({ children }) => {
           {/* Page content here */}
           <div className="p-4">
             {children}
+            <Footer></Footer>
           </div>
         </div>
 
