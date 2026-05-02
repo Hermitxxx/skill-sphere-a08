@@ -1,5 +1,6 @@
 import { Clock } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function CourseCard({ course }) {
 
@@ -59,9 +60,11 @@ export default function CourseCard({ course }) {
                     {course.description}
                 </p>
 
-                <button className="w-full cursor-pointer mt-1 py-2 text-[12px] font-semibold tracking-wide rounded-full border border-accent/30 text-accent bg-accent/5 hover:bg-accent/20 hover:border-accent/50 transition-all duration-300">
-                    See Details
-                </button>
+                <Link href={`/course-details/${course.id}`}>
+                    <button className="w-full cursor-pointer mt-1 py-2 text-[12px] font-semibold tracking-wide rounded-full border border-accent/30 text-accent bg-accent/5 hover:bg-accent/20 hover:border-accent/50 transition-all duration-300">
+                        See Details
+                    </button>
+                </Link>
             </div>
         </div>
     );
