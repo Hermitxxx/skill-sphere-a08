@@ -4,18 +4,34 @@ import CourseCard from '../../cards/CourseCard';
 import { getData, getPopular } from '@/app/lib/data';
 import { authClient } from '@/app/lib/auth-client';
 import Restricted from '../../Restricted';
+import { useData } from '@/app/context/dataContext';
+import Spinner from '../../spinner/Spinner';
 
-const allCourses = await getData()
-const popular = await getPopular()
+// const allCoursesData = await getData()
+// const popular = await getPopular()
 
 const AllCourses = () => {
     const [state, setState] = useState('all-courses')
+    const [searchValue, setSearchValue] = useState('')
     const { data: session } = authClient.useSession()
     const user = session?.user
 
     const handleClick = (value) => {
         setState(value)
     }
+
+    const { data: allCourses, popular, loading } = useData()
+    if (loading) {
+        <Spinner></Spinner>
+    }
+
+    const filterArr = [...allCourses]
+    const searchedCourses = filterArr.filter(course => course.title.toLowerCase().includes(searchValue.toLowerCase()))
+
+    const handleSearch = () => {
+        setState('search')
+    }
+
     return (
         <div className='mb-10'>
             {
@@ -39,12 +55,14 @@ const AllCourses = () => {
                             <input
                                 type="search"
                                 placeholder="Search"
+                                value={searchValue}
+                                onChange={(e) => setSearchValue(e.target.value)}
                                 className="w-full rounded-full border border-white/10 bg-surface py-2.5 pl-10 pr-4 text-sm text-text placeholder:text-surface-alt/50 focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/20 transition-all duration-300"
                             />
                         </div>
 
                         <div>
-                            <button className="btn transition-colors duration-300 hover:border-accent hover:text-accent bg-surface border border-muted text-tertiary rounded-full">
+                            <button onClick={handleSearch} className="btn transition-colors duration-300 hover:border-accent hover:text-accent bg-surface border border-muted text-tertiary rounded-full">
                                 Search
                             </button>
                         </div>
@@ -62,14 +80,21 @@ const AllCourses = () => {
 
                     <div className='course-cards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5'>
                         {
-                            state === 'all-courses' ? allCourses.map(course => <CourseCard key={course.id} course={course}></CourseCard>) :
-                                popular.map(course => <CourseCard key={course.id} course={course}></CourseCard>)
+                            state === 'all-courses' && allCourses.map(course => <CourseCard key={course.id} course={course}></CourseCard>) ||
+                            state === 'popular' && popular.map(course => <CourseCard key={course.id} course={course}></CourseCard>) ||
+                            state === 'search' && searchedCourses.map(course => <CourseCard key={course.id} course={course}></CourseCard>)
                         }
                     </div>
+                    {
+                        searchedCourses.length === 0 &&
+                        <div className='flex items-center justify-center'>
+                            <p className='font-semibold text-surface-alt text-3xl'>No matching items</p>
+                        </div>
+                    }
                 </> :
-                <>
-                    <Restricted></Restricted>
-                </>
+                    <>
+                        <Restricted></Restricted>
+                    </>
             }
         </div>
     );

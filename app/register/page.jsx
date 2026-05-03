@@ -11,6 +11,7 @@ import {
     Link,
     TextField,
 } from '@heroui/react';
+import { Icon } from "@iconify/react";
 import { useForm } from 'react-hook-form';
 import { authClient } from '@/app/lib/auth-client';
 import { useRouter } from 'next/navigation';
@@ -19,6 +20,14 @@ import { Eye } from 'lucide-react';
 import { Bounce, toast } from 'react-toastify';
 
 export default function RegisterPage() {
+    async function handleGoogle() {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+
+        console.log(data);
+    }
+
     const router = useRouter()
     const [pToggle, setPToggle] = useState(false)
     const {
@@ -150,12 +159,19 @@ export default function RegisterPage() {
                     </Form>
                 </Card>
 
-                <p className="text-center text-sm text-surface-alt/60 mt-6">
-                    Don&apos;t have an account?{' '}
-                    <Link href="/register" className="text-accent hover:text-accent/80">
-                        Create one
+                <p className="text-center text-sm text-surface-alt/60 mt-6 mb-6">
+                    Already have an account?{' '}
+                    <Link href="/login" className="text-accent hover:text-accent/80">
+                        Login
                     </Link>
                 </p>
+
+                <div className='pt-6'>
+                    <Button onClick={handleGoogle} className="w-full bg-accent text-surface" variant="tertiary">
+                        <Icon icon="devicon:google" />
+                        Sign up with Google
+                    </Button>
+                </div>
             </div>
         </div>
     );

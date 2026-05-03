@@ -1,5 +1,5 @@
 'use client'
-import { Anchor, Beef, Brain, BrainCircuitIcon, ChartCandlestick, Fan, House, LogIn, LogOut, LucideOctagonX, Menu, Settings, SquareChevronRight, TrendingUp, User } from 'lucide-react';
+import { Anchor, Beef, Brain, BrainCircuitIcon, ChartCandlestick, DiamondPlus, Fan, House, LogIn, LogOut, LucideOctagonX, Menu, Settings, SquareChevronRight, TrendingUp, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -8,6 +8,8 @@ import Footer from './sections/Footer';
 import { authClient } from '../lib/auth-client';
 import { useRouter } from 'next/navigation';
 import { Bounce, toast } from 'react-toastify';
+import { MdOutlineCreate } from 'react-icons/md';
+import { IoIosCreate } from 'react-icons/io';
 
 const Sidebar = ({ children }) => {
   const router = useRouter()
@@ -21,7 +23,7 @@ const Sidebar = ({ children }) => {
       fetchOptions: {
         onSuccess: () => {
           router.push("/"); // redirect to login page
-          toast.info('Logout successful', {
+          toast.success('Logout successful', {
             position: "top-left",
             autoClose: 2000,
             hideProgressBar: false,
@@ -35,6 +37,14 @@ const Sidebar = ({ children }) => {
         },
       },
     });
+  }
+
+  function handleLogIn() {
+    router.push(`/login`)
+  }
+
+  function handleRegister() {
+    router.push(`/register`)
   }
   return (
     <div>
@@ -59,7 +69,7 @@ const Sidebar = ({ children }) => {
                   user ?
                     <>
                       <div className="profile rounded-full border border-accent">
-                        <Image src={user.image} className='object-cover rounded-full' alt={user.name} width={32} height={32}></Image>
+                        <Image src={user?.image ? user.image : `https://robohash.org/eumquaecum.png?size=250x250&set=set1`} className='object-cover rounded-full' alt={user.name} width={32} height={32}></Image>
                       </div>
 
                       <button onClick={handleLogOut} className="btn bg-primary text-surface rounded-full">
@@ -116,30 +126,45 @@ const Sidebar = ({ children }) => {
                 </NavLink>
               </li>
 
-              <li>
-                <NavLink href={`/trending`}>
-                  <button className="flex items-center gap-2">
-                    <TrendingUp />
-                    <span className="is-drawer-close:hidden text-lg">Popular</span>
-                  </button>
-                </NavLink>
-              </li>
+              {
+                user &&
+                <>
+                  <li>
+                    <NavLink href={`/profile`}>
+                      <button className="flex items-center gap-2">
+                        <User />
+                        <span className="is-drawer-close:hidden text-lg">Profile</span>
+                      </button>
+                    </NavLink>
+                  </li>
 
-              <li>
-                <NavLink href={`/profile`}>
-                  <button className="flex items-center gap-2">
-                    <User />
-                    <span className="is-drawer-close:hidden text-lg">Profile</span>
-                  </button>
-                </NavLink>
-              </li>
+                  <li>
+                    <button onClick={handleLogOut} className="is-drawer-close:tooltip rounded-full bg-primary text-surface flex items-center gap-2 is-drawer-close:tooltip-right">
+                      <LogOut />
+                      <span className="is-drawer-close:hidden text-lg">Log out</span>
+                    </button>
+                  </li>
+                </>
+              }
 
-              <li>
-                <button className="is-drawer-close:tooltip rounded-full bg-primary text-surface flex items-center gap-2 is-drawer-close:tooltip-right" data-tip="Settings">
-                  <LogOut />
-                  <span className="is-drawer-close:hidden text-lg">Log out</span>
-                </button>
-              </li>
+              {
+                !user &&
+                <>
+                  <li>
+                    <button onClick={handleRegister} className="is-drawer-close:tooltip rounded-full bg-primary text-surface flex items-center gap-2 is-drawer-close:tooltip-right">
+                      <DiamondPlus />
+                      <span className="is-drawer-close:hidden text-lg">Register</span>
+                    </button>
+                  </li>
+
+                  <li>
+                    <button onClick={handleLogIn} className="is-drawer-close:tooltip rounded-full bg-primary text-surface flex items-center gap-2 is-drawer-close:tooltip-right">
+                      <LogIn />
+                      <span className="is-drawer-close:hidden text-lg">Log in</span>
+                    </button>
+                  </li>
+                </>
+              }
             </ul>
           </div>
         </div>

@@ -16,8 +16,17 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Eye } from 'lucide-react';
 import { Bounce, toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { Icon } from '@iconify/react';
 
 export default function LoginPage() {
+    async function handleGoogle() {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+
+        console.log(data);
+    }
+
     const [pToggle, setPToggle] = useState(false)
     const router = useRouter()
     const {
@@ -125,6 +134,13 @@ export default function LoginPage() {
                         Create one
                     </Link>
                 </p>
+
+                <div className='pt-6'>
+                    <Button onClick={handleGoogle} className="w-full bg-accent text-surface" variant="tertiary">
+                        <Icon icon="devicon:google" />
+                        Sign in with Google
+                    </Button>
+                </div>
             </div>
         </div>
     );

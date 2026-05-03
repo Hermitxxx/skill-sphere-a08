@@ -1,11 +1,44 @@
+'use client'
 import { ArrowRight } from 'lucide-react';
 import React from 'react';
 import hero from '../../../../public/hero-5.png'
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { authClient } from '@/app/lib/auth-client';
+import { motion } from "framer-motion";
+import { Bounce, toast } from 'react-toastify';
 
 const Hero = () => {
+    const { data: session } = authClient.useSession()
+    const user = session?.user
+    const router = useRouter()
+
+    function handleStartLearning() {
+        if (user) {
+            router.push(`/all-courses`)
+        }
+        else {
+            router.push('/register')
+            toast.error(`Register or login first to start learning`, {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+        }
+    }
     return (
-        <section className='container mx-auto px-4'>
+        <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className='container mx-auto px-4'>
             <div className='flex max-lg:flex-col max-lg:gap-10 gap-16 lg:gap-20 py-12 lg:py-20 justify-between min-h-[calc(100vh-12rem)] items-center'>
                 {/* Text Content */}
                 <div className="intro space-y-6 max-w-xl">
@@ -18,7 +51,7 @@ const Hero = () => {
                         Explore learning ecosystems building a connected learning experience.
                     </p>
 
-                    <button className="group cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-accent text-surface font-semibold rounded-lg hover:bg-accent/90 transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5">
+                    <button onClick={handleStartLearning} className="group cursor-pointer inline-flex items-center gap-2 px-6 py-3 bg-accent text-surface font-semibold rounded-lg hover:bg-accent/90 transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5">
                         <span>Start Learning</span>
                         <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </button>
@@ -37,7 +70,7 @@ const Hero = () => {
                     />
                 </div>
             </div>
-        </section>
+        </motion.div>
     );
 };
 

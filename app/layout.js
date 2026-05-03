@@ -3,6 +3,7 @@ import "./globals.css";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/sections/Footer";
 import { Bounce, ToastContainer } from "react-toastify";
+import DataProvider from "./context/dataContext";
 
 
 const spaceGrotesk = Space_Grotesk({
@@ -25,23 +26,27 @@ export default function RootLayout({ children }) {
       className={`${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover={false}
-          theme="dark"
-          transition={Bounce}
-        />
-        <Sidebar>
-          {children}
-        </Sidebar>
-        <Footer></Footer>
+        <DataProvider>
+
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover={false}
+            theme="dark"
+            transition={Bounce}
+          />
+          <Sidebar>
+            {children}
+          </Sidebar>
+          <Footer></Footer>
+
+        </DataProvider>
       </body>
     </html>
   );

@@ -1,10 +1,15 @@
+'use client'
 import Image from 'next/image';
 import React from 'react';
+import { motion } from "framer-motion";
 import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
-const InstructorCard = ({ins}) => {
+const InstructorCard = ({ ins }) => {
     return (
-        <div className="group rounded-xl overflow-hidden border border-white/10 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-accent/40 bg-surface">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }} className="group rounded-xl overflow-hidden border border-white/10 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-accent/40 bg-surface">
 
             <div className="relative w-full h-56.5 overflow-hidden">
                 <Image
@@ -41,7 +46,7 @@ const InstructorCard = ({ins}) => {
                     <FaLinkedin></FaLinkedin>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -4,6 +4,7 @@ import { Clock } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { motion } from "framer-motion";
 import { Bounce, toast } from 'react-toastify';
 
 export default function CourseCard({ course }) {
@@ -19,7 +20,7 @@ export default function CourseCard({ course }) {
         }
 
         if (!user) {
-            toast.error('You must log in to see details', {
+            toast.error('Login or signup to see details', {
                 position: "top-left",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -30,12 +31,17 @@ export default function CourseCard({ course }) {
                 theme: "dark",
                 transition: Bounce,
             });
+            router.push('/login')
         }
     }
 
     return (
-        <div className="group rounded-xl overflow-hidden border border-white/10 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-accent/40 bg-surface">
-
+        <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="group rounded-xl overflow-hidden border border-white/10 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:border-accent/40 bg-surface"
+        >
             <div className="relative w-full h-39.5 overflow-hidden">
                 <Image
                     src={course.image}
@@ -93,6 +99,6 @@ export default function CourseCard({ course }) {
                     See Details
                 </button>
             </div>
-        </div>
+        </motion.div>
     );
 }
