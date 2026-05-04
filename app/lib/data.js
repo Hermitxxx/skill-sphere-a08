@@ -20,6 +20,17 @@ export const getPopular = async () => {
     return data
 }
 
+export const getNewReleases = async () => {
+    const res = await fetch('https://server-skill-sphere.onrender.com/new-releases')
+
+    if (!res.ok) {
+        return null
+    }
+
+    const data = await res.json()
+    return data
+}
+
 export const getCourseById = async (id) => {
     const res = await fetch(`https://server-skill-sphere.onrender.com/products/${id}`)
 

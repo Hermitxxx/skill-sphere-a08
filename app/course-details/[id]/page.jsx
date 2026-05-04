@@ -1,8 +1,9 @@
 import { getCourseById } from '@/app/lib/data';
 import Image from 'next/image';
-import { ArrowLeft, Clock, User, Tag, BarChart3, Star } from 'lucide-react';
+import { ArrowLeft, Clock, User, Tag, BarChart3, Star, ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import DropDown from '@/app/components/DropDown';
 
 const CourseDetails = async ({ params }) => {
     const { id } = await params;
@@ -81,6 +82,19 @@ const CourseDetails = async ({ params }) => {
                             </button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div className='p-4'>
+                <h1 className='text-3xl text-accent font-semibold mb-4'>Course Curriculum</h1>
+
+                <div className='grid grid-cols-1 gap-4'>
+                    {
+                        courseDetails.curriculum.map((c,i) => <div className='p-4 border border-surface-alt rounded-lg bg-surface' key={i}>
+                                <p className='text-2xl font-medium mb-3'>{c.lesson}</p>
+                                <DropDown c={c}></DropDown>
+                            </div>)
+                    }
                 </div>
             </div>
         </div>

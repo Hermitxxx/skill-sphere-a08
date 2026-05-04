@@ -4,6 +4,7 @@ import Hero from './sections/hero/hero';
 import PopularCourses from './sections/courses-section/PopularCourses';
 import InstructorSec from './sections/instructor-section/InstructorSec';
 import LearningTips from './LearningTips';
+import NewReleases from './sections/courses-section/NewReleases';
 
 
 
@@ -14,6 +15,7 @@ const HomePage = () => {
             <PopularCourses></PopularCourses>
             <InstructorSec></InstructorSec>
             <LearningTips></LearningTips>
+            <NewReleases></NewReleases>
         </div>
     );
 };

@@ -5,7 +5,7 @@ export default function LearningTips() {
         <div className="mt-12 pb-16 ">
 
             <div className="flex items-center gap-2 mb-8">
-                <h2 className="text-4xl font-semibold text-accent">
+                <h2 className="text-4xl font-semibold">
                     Learning Tips
                 </h2>
             </div>
